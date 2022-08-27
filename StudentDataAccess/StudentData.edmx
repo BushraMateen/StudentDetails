@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="STMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Blocks">
+          <Key>
+            <PropertyRef Name="BlockID" />
+          </Key>
+          <Property Name="BlockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictID" Type="int" />
+          <Property Name="DistrictCode" Type="int" />
+          <Property Name="BlockName" Type="varchar" MaxLength="255" />
+          <Property Name="AlternateBlockName" Type="varchar" MaxLength="255" />
+          <Property Name="BlockCode" Type="int" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Clusters">
+          <Key>
+            <PropertyRef Name="ClusterID" />
+          </Key>
+          <Property Name="ClusterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictID" Type="int" />
+          <Property Name="BlockID" Type="int" />
+          <Property Name="DistrictCode" Type="int" />
+          <Property Name="ClusterName" Type="varchar" MaxLength="255" />
+          <Property Name="AlternateClusterName" Type="varchar" MaxLength="255" />
+          <Property Name="ClusterCode" Type="int" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Districts">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictName" Type="varchar" MaxLength="100" />
+          <Property Name="AlternateName" Type="varchar" MaxLength="100" />
+          <Property Name="Talukas" Type="int" />
+          <Property Name="DistCode" Type="int" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SchoolData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolCode" Type="nvarchar(max)" />
+          <Property Name="SchoolName" Type="nvarchar(max)" />
+          <Property Name="District" Type="nvarchar(max)" />
+          <Property Name="Block" Type="nvarchar(max)" />
+          <Property Name="Cluster" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="schoolInfo">
+          <Key>
+            <PropertyRef Name="schoolInfoID" />
+          </Key>
+          <Property Name="schoolInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STATE_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_NAME" Type="nvarchar(max)" />
+          <Property Name="DISTRICT_ID" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_AREA" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_CATEGORY_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_MEDIUM" Type="nvarchar(max)" />
+          <Property Name="STATE_ID" Type="nvarchar(max)" />
+          <Property Name="DISTRICT_NAME" Type="nvarchar(max)" />
+          <Property Name="BRC_NAME" Type="nvarchar(max)" />
+          <Property Name="CRC_NAME" Type="nvarchar(max)" />
+          <Property Name="MAX_STANDARD" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_CATEGORY" Type="nvarchar(max)" />
+          <Property Name="EDUCATION_LEVEL_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_ADDRESS" Type="nvarchar(max)" />
+          <Property Name="BRC_ID" Type="nvarchar(max)" />
+          <Property Name="EDUCATION_LEVEL" Type="nvarchar(max)" />
+          <Property Name="MIN_STANDARD" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_MEDIUM_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_AREA_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_ID" Type="nvarchar(max)" />
+          <Property Name="DIVISION_ID" Type="nvarchar(max)" />
+          <Property Name="DIVISION_NAME" Type="nvarchar(max)" />
+          <Property Name="CRC_ID" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_MANAGEMENT_NAME" Type="nvarchar(max)" />
+          <Property Name="SCHOOL_MANAGEMENT" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Blocks__District__286302EC">
+          <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
+          <End Role="Blocks" Type="Self.Blocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Districts">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="Blocks">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clusters__BlockI__3C69FB99">
+          <End Role="Blocks" Type="Self.Blocks" Multiplicity="0..1" />
+          <End Role="Clusters" Type="Self.Clusters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blocks">
+              <PropertyRef Name="BlockID" />
+            </Principal>
+            <Dependent Role="Clusters">
+              <PropertyRef Name="BlockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clusters__Distri__3D5E1FD2">
+          <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
+          <End Role="Clusters" Type="Self.Clusters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Districts">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="Clusters">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STMSModelStoreContainer">
+          <EntitySet Name="Blocks" EntityType="Self.Blocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clusters" EntityType="Self.Clusters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Districts" EntityType="Self.Districts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolData" EntityType="Self.SchoolData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schoolInfo" EntityType="Self.schoolInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Blocks__District__286302EC" Association="Self.FK__Blocks__District__286302EC">
+            <End Role="Districts" EntitySet="Districts" />
+            <End Role="Blocks" EntitySet="Blocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clusters__BlockI__3C69FB99" Association="Self.FK__Clusters__BlockI__3C69FB99">
+            <End Role="Blocks" EntitySet="Blocks" />
+            <End Role="Clusters" EntitySet="Clusters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clusters__Distri__3D5E1FD2" Association="Self.FK__Clusters__Distri__3D5E1FD2">
+            <End Role="Districts" EntitySet="Districts" />
+            <End Role="Clusters" EntitySet="Clusters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="STMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Block">
+          <Key>
+            <PropertyRef Name="BlockID" />
+          </Key>
+          <Property Name="BlockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="DistrictCode" Type="Int32" />
+          <Property Name="BlockName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AlternateBlockName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BlockCode" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Blocks__District__286302EC" FromRole="Blocks" ToRole="Districts" />
+          <NavigationProperty Name="Clusters" Relationship="Self.FK__Clusters__BlockI__3C69FB99" FromRole="Blocks" ToRole="Clusters" />
+        </EntityType>
+        <EntityType Name="Cluster">
+          <Key>
+            <PropertyRef Name="ClusterID" />
+          </Key>
+          <Property Name="ClusterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="BlockID" Type="Int32" />
+          <Property Name="DistrictCode" Type="Int32" />
+          <Property Name="ClusterName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AlternateClusterName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterCode" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Block" Relationship="Self.FK__Clusters__BlockI__3C69FB99" FromRole="Clusters" ToRole="Blocks" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Clusters__Distri__3D5E1FD2" FromRole="Clusters" ToRole="Districts" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AlternateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Talukas" Type="Int32" />
+          <Property Name="DistCode" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Blocks" Relationship="Self.FK__Blocks__District__286302EC" FromRole="Districts" ToRole="Blocks" />
+          <NavigationProperty Name="Clusters" Relationship="Self.FK__Clusters__Distri__3D5E1FD2" FromRole="Districts" ToRole="Clusters" />
+        </EntityType>
+        <EntityType Name="SchoolData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Block" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cluster" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="schoolInfo">
+          <Key>
+            <PropertyRef Name="schoolInfoID" />
+          </Key>
+          <Property Name="schoolInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DISTRICT_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_AREA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_CATEGORY_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_MEDIUM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="STATE_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DISTRICT_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BRC_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRC_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MAX_STANDARD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_CATEGORY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EDUCATION_LEVEL_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BRC_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EDUCATION_LEVEL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MIN_STANDARD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_MEDIUM_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_AREA_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DIVISION_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DIVISION_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRC_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_MANAGEMENT_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCHOOL_MANAGEMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Blocks__District__286302EC">
+          <End Role="Districts" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Blocks" Type="Self.Block" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Districts">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="Blocks">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clusters__BlockI__3C69FB99">
+          <End Role="Blocks" Type="Self.Block" Multiplicity="0..1" />
+          <End Role="Clusters" Type="Self.Cluster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blocks">
+              <PropertyRef Name="BlockID" />
+            </Principal>
+            <Dependent Role="Clusters">
+              <PropertyRef Name="BlockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clusters__Distri__3D5E1FD2">
+          <End Role="Districts" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Clusters" Type="Self.Cluster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Districts">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="Clusters">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Blocks" EntityType="Self.Block" />
+          <EntitySet Name="Clusters" EntityType="Self.Cluster" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="SchoolDatas" EntityType="Self.SchoolData" />
+          <EntitySet Name="schoolInfoes" EntityType="Self.schoolInfo" />
+          <AssociationSet Name="FK__Blocks__District__286302EC" Association="Self.FK__Blocks__District__286302EC">
+            <End Role="Districts" EntitySet="Districts" />
+            <End Role="Blocks" EntitySet="Blocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clusters__BlockI__3C69FB99" Association="Self.FK__Clusters__BlockI__3C69FB99">
+            <End Role="Blocks" EntitySet="Blocks" />
+            <End Role="Clusters" EntitySet="Clusters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clusters__Distri__3D5E1FD2" Association="Self.FK__Clusters__Distri__3D5E1FD2">
+            <End Role="Districts" EntitySet="Districts" />
+            <End Role="Clusters" EntitySet="Clusters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="STMSModelStoreContainer" CdmEntityContainer="STMSEntities">
+          <EntitySetMapping Name="Blocks">
+            <EntityTypeMapping TypeName="STMSModel.Block">
+              <MappingFragment StoreEntitySet="Blocks">
+                <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+                <ScalarProperty Name="BlockName" ColumnName="BlockName" />
+                <ScalarProperty Name="AlternateBlockName" ColumnName="AlternateBlockName" />
+                <ScalarProperty Name="BlockCode" ColumnName="BlockCode" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clusters">
+            <EntityTypeMapping TypeName="STMSModel.Cluster">
+              <MappingFragment StoreEntitySet="Clusters">
+                <ScalarProperty Name="ClusterID" ColumnName="ClusterID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+                <ScalarProperty Name="ClusterName" ColumnName="ClusterName" />
+                <ScalarProperty Name="AlternateClusterName" ColumnName="AlternateClusterName" />
+                <ScalarProperty Name="ClusterCode" ColumnName="ClusterCode" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="STMSModel.District">
+              <MappingFragment StoreEntitySet="Districts">
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="AlternateName" ColumnName="AlternateName" />
+                <ScalarProperty Name="Talukas" ColumnName="Talukas" />
+                <ScalarProperty Name="DistCode" ColumnName="DistCode" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolDatas">
+            <EntityTypeMapping TypeName="STMSModel.SchoolData">
+              <MappingFragment StoreEntitySet="SchoolData">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Cluster" ColumnName="Cluster" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schoolInfoes">
+            <EntityTypeMapping TypeName="STMSModel.schoolInfo">
+              <MappingFragment StoreEntitySet="schoolInfo">
+                <ScalarProperty Name="schoolInfoID" ColumnName="schoolInfoID" />
+                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
+                <ScalarProperty Name="SCHOOL_NAME" ColumnName="SCHOOL_NAME" />
+                <ScalarProperty Name="DISTRICT_ID" ColumnName="DISTRICT_ID" />
+                <ScalarProperty Name="SCHOOL_AREA" ColumnName="SCHOOL_AREA" />
+                <ScalarProperty Name="SCHOOL_CATEGORY_NAME" ColumnName="SCHOOL_CATEGORY_NAME" />
+                <ScalarProperty Name="SCHOOL_MEDIUM" ColumnName="SCHOOL_MEDIUM" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="DISTRICT_NAME" ColumnName="DISTRICT_NAME" />
+                <ScalarProperty Name="BRC_NAME" ColumnName="BRC_NAME" />
+                <ScalarProperty Name="CRC_NAME" ColumnName="CRC_NAME" />
+                <ScalarProperty Name="MAX_STANDARD" ColumnName="MAX_STANDARD" />
+                <ScalarProperty Name="SCHOOL_CATEGORY" ColumnName="SCHOOL_CATEGORY" />
+                <ScalarProperty Name="EDUCATION_LEVEL_NAME" ColumnName="EDUCATION_LEVEL_NAME" />
+                <ScalarProperty Name="SCHOOL_ADDRESS" ColumnName="SCHOOL_ADDRESS" />
+                <ScalarProperty Name="BRC_ID" ColumnName="BRC_ID" />
+                <ScalarProperty Name="EDUCATION_LEVEL" ColumnName="EDUCATION_LEVEL" />
+                <ScalarProperty Name="MIN_STANDARD" ColumnName="MIN_STANDARD" />
+                <ScalarProperty Name="SCHOOL_MEDIUM_NAME" ColumnName="SCHOOL_MEDIUM_NAME" />
+                <ScalarProperty Name="SCHOOL_AREA_NAME" ColumnName="SCHOOL_AREA_NAME" />
+                <ScalarProperty Name="SCHOOL_ID" ColumnName="SCHOOL_ID" />
+                <ScalarProperty Name="DIVISION_ID" ColumnName="DIVISION_ID" />
+                <ScalarProperty Name="DIVISION_NAME" ColumnName="DIVISION_NAME" />
+                <ScalarProperty Name="CRC_ID" ColumnName="CRC_ID" />
+                <ScalarProperty Name="SCHOOL_MANAGEMENT_NAME" ColumnName="SCHOOL_MANAGEMENT_NAME" />
+                <ScalarProperty Name="SCHOOL_MANAGEMENT" ColumnName="SCHOOL_MANAGEMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
