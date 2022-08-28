@@ -17,11 +17,20 @@ namespace StudentDetails.Controllers
                 return entities.SchoolDatas.ToList();
             }
         }
-        public SchoolData Get(int id)
+        public HttpResponseMessage Get(int id)
         {
             using (STMSEntities entities = new STMSEntities())
             {
-                return entities.SchoolDatas.FirstOrDefault(e => e.id == id);
+                var entity = entities.SchoolDatas.FirstOrDefault(e => e.id == id);
+                if(entity != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, entity);
+
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with id " + id.ToString()  +  "not found");
+                }
             }
         }
         [HttpPost]
@@ -45,5 +54,33 @@ namespace StudentDetails.Controllers
             }
             
         }
+        public HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                using (STMSEntities entities = new STMSEntities())
+                {
+                    var entity = entities.SchoolDatas.FirstOrDefault(e => e.id == id);
+                    if (entity == null)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with id " +  id.ToString() + "not found to delete");
+
+                    }
+                    else
+                    {
+                        entities.SchoolDatas.Remove(entity);
+                        entities.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK,"Deleted succesfully");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+
+            }
+        }
+    
     }
-}
+    }
